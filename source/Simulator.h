@@ -9,13 +9,13 @@ class Simulator{
 
 public:
 
-	static void simulation(sf::RenderWindow &, sf::Event &, MapData &, int, std::string);
-	static void displayMap(sf::RenderWindow &, MapData &);
+	static void simulation(sf::RenderWindow &, sf::Event &, Map &, int, std::string);
+	static void displayMap(sf::RenderWindow &, Map &);
 	static void displayTurnCounter(int);
 	static void countDownToTheStart();
-	static int fCounter(MapData &, int, int);
-	static int fDecrease(MapData &, int);
-	static int fIncrease(MapData &, int);
+	static int fCounter(Map &, int, int);
+	static int fDecrease(Map &, int);
+	static int fIncrease(Map &, int);
 
 private:
 	static bool isStopped;

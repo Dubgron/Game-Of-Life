@@ -1,41 +1,56 @@
 #include "Map.h"
 
 
-void MapData::set(int squaresAmount, int windowSize, bool isInfinite) {
+void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 	this->squaresAmount = squaresAmount;
 	this->isInfinite = isInfinite;
 	cellSize = windowSize / squaresAmount;
 
-	squares = new sf::RectangleShape*[squaresAmount];
+	squares.setPrimitiveType(sf::Quads);
+	squares.resize(squaresAmount * squaresAmount * 4);
+
+	//squares = new sf::RectangleShape*[squaresAmount];
 	isAlive = new bool*[squaresAmount];
 	willBeAlive = new bool*[squaresAmount];
 
 	for (int x = 0; x < squaresAmount; x++) {
 
-		squares[x] = new sf::RectangleShape[squaresAmount];
+		//squares[x] = new sf::RectangleShape[squaresAmount];
 		isAlive[x] = new bool[squaresAmount];
 		willBeAlive[x] = new bool[squaresAmount];
 		
 		for (int y = 0; y < squaresAmount; y++) {
 
-			squares[x][y].setPosition(sf::Vector2f(x * (float)cellSize, y * (float)cellSize));
-			squares[x][y].setSize(sf::Vector2f((float)cellSize, (float)cellSize));
-			squares[x][y].setFillColor(sf::Color::Black);
+			//squares[x][y].setPosition(sf::Vector2f(x * (float)cellSize, y * (float)cellSize));
+			//squares[x][y].setSize(sf::Vector2f((float)cellSize, (float)cellSize));
+			//squares[x][y].setFillColor(sf::Color::Black);
+			sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
+
+			square[0].position = sf::Vector2f(cellSize * x, cellSize * y);
+			square[1].position = sf::Vector2f(cellSize * (x + 1), cellSize * y);
+			square[2].position = sf::Vector2f(cellSize * (x + 1), cellSize * (y + 1));
+			square[3].position = sf::Vector2f(cellSize * x, cellSize * (y + 1));
+
+			statusChange(square, sf::Color::White);
+
 			isAlive[x][y] = false;
-			
+
+			//delete square;
 		}
 	}
 }
 
-void MapData::draw(sf::RenderWindow &window) {
+void Map::draw(sf::RenderWindow &window) {
 
 	for (int y = 0; y < squaresAmount; y++)
 		for (int x = 0; x < squaresAmount; x++)
-			if (isAlive[x][y]) window.draw(squares[x][y]);
+			statusChange(isAlive[x][y], x, y);
+			//if (isAlive[x][y]) window.draw(squares[x][y]);
+	window.draw(squares);
 }
 
-void MapData::loadMap() {
+void Map::loadMap() {
 
 	do {
 
@@ -74,7 +89,7 @@ void MapData::loadMap() {
 	file.close();
 }
 
-void MapData::save() {
+void Map::save() {
 
 	system("cls");
 	std::cout << "-= The Game of Life =-\n\n";
@@ -100,7 +115,7 @@ void MapData::save() {
 	file.close();
 }
 
-void MapData::loadList() {
+void Map::loadList() {
 
 	file.open("maps/List.txt", std::ios::in);
 
@@ -112,7 +127,7 @@ void MapData::loadList() {
 	file.close();
 }
 
-void MapData::showList() {
+void Map::showList() {
 
 	int i = 1;
 
@@ -124,9 +139,24 @@ void MapData::showList() {
 	std::cout << "\n";
 }
 
-void MapData::loadError() {
+void Map::loadError() {
 
 	std::cout << "\nError! File doesn't exist!";
 	file.close();
 	_getch();
+}
+
+void Map::statusChange(bool &isAlive, int x, int y) {
+
+	sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
+
+	statusChange(square, ((isAlive) ? sf::Color::Black : sf::Color::White));
+
+	//delete square;
+}
+
+void Map::statusChange(sf::Vertex* square, sf::Color color) {
+
+	for (int i = 0; i < 4; i++)
+		square[i].color = color;
 }

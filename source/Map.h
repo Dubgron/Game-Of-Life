@@ -10,8 +10,9 @@
 #include <string>
 #include <vector>
 
-struct MapData {
+class Map {
 
+public:
 	void set(int, int, bool);
 	void draw(sf::RenderWindow &window);
 	void loadMap();
@@ -20,18 +21,24 @@ struct MapData {
 	void showList();
 	void loadError();
 
+	bool** isAlive;
+	bool** willBeAlive;
+	sf::VertexArray squares;
+	//sf::RectangleShape** squares;
+
+	void statusChange(bool &, int, int);
+	void statusChange(sf::Vertex*, sf::Color);
+
+	int squaresAmount;
+	int cellSize;
+	bool isInfinite;
+
+private:
 	std::fstream file;
 	std::vector<std::string> list;
 	std::string sPath;
 	int iPath;
 
-	int squaresAmount;
-	int cellSize;
-	bool isInfinite;	
-
-	sf::RectangleShape** squares;
-	bool** isAlive;
-	bool** willBeAlive;
 };
 
 #endif // ! MAP_H

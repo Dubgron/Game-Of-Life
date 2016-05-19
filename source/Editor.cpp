@@ -1,7 +1,7 @@
 #include "Editor.h"
 
 
-void Editor::edit(sf::RenderWindow &window, sf::Event &event, MapData &map, int windowSize, std::string title) {
+void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int windowSize, std::string title) {
 
 	window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
 	info();
@@ -36,7 +36,8 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, MapData &map, int 
 
 			if (!map.isAlive[covered.x][covered.y]) {
 
-				map.squares[covered.x][covered.y].setFillColor(sf::Color(66, 209, 66));
+				//map.squares[covered.x][covered.y].setFillColor(sf::Color(66, 209, 66));
+				map.statusChange(&map.squares[(covered.x + covered.y * map.squaresAmount) * 4], sf::Color(66, 209, 66));
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
 					map.isAlive[covered.x][covered.y] = true;
@@ -44,7 +45,8 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, MapData &map, int 
 			}
 			else {
 
-				map.squares[covered.x][covered.y].setFillColor(sf::Color(216, 55, 55));
+				//map.squares[covered.x][covered.y].setFillColor(sf::Color(216, 55, 55));
+				map.statusChange(&map.squares[(covered.x + covered.y * map.squaresAmount) * 4], sf::Color(216, 55, 55));
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 				
 					map.isAlive[covered.x][covered.y] = false;
@@ -52,12 +54,16 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, MapData &map, int 
 			}
 		}
 
+		window.draw(map.squares);
+
 		for (int y = 0; y < map.squaresAmount; y++) {
 			for (int x = 0; x < map.squaresAmount; x++) {
 
-				if (map.isAlive[x][y] || (!map.isAlive[x][y] && map.squares[x][y].getFillColor() == sf::Color(66, 209, 66)))
-					window.draw(map.squares[x][y]);
-				map.squares[x][y].setFillColor(sf::Color::Black);
+				//if (map.isAlive[x][y] || (!map.isAlive[x][y] && map.squares[x][y].getFillColor() == sf::Color(66, 209, 66)))
+					//window.draw(map.squares[x][y]);
+				//map.squares[x][y].setFillColor(sf::Color::Black);
+
+				map.statusChange(map.isAlive[x][y], x, y);
 			}
 		}
 

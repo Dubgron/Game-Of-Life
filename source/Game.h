@@ -12,7 +12,7 @@ public:
 
 	void start();
 	void menu();
-	MapData map;
+	Map map;
 
 private:
 	sf::RenderWindow window;
