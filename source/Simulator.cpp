@@ -5,16 +5,10 @@ int Simulator::turn = 0;
 
 int Simulator::fIncrease(Map &map, int n) {
 
-	//if (n < map.squaresAmount - 1) return n + 1;
-	//return 0;
-
 	return n < map.squaresAmount - 1 ? n + 1 : 0;
 }
 
 int Simulator::fDecrease(Map &map, int n) {
-
-	//if (n > 0) return n - 1;
-	//return map.squaresAmount - 1;
 
 	return n > 0 ? n - 1 : map.squaresAmount - 1;
 }

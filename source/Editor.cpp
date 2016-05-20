@@ -36,7 +36,6 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 
 			if (!map.isAlive[covered.x][covered.y]) {
 
-				//map.squares[covered.x][covered.y].setFillColor(sf::Color(66, 209, 66));
 				map.statusChange(&map.squares[(covered.x + covered.y * map.squaresAmount) * 4], sf::Color(66, 209, 66));
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
@@ -45,7 +44,6 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 			}
 			else {
 
-				//map.squares[covered.x][covered.y].setFillColor(sf::Color(216, 55, 55));
 				map.statusChange(&map.squares[(covered.x + covered.y * map.squaresAmount) * 4], sf::Color(216, 55, 55));
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 				
@@ -58,10 +56,6 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 
 		for (int y = 0; y < map.squaresAmount; y++) {
 			for (int x = 0; x < map.squaresAmount; x++) {
-
-				//if (map.isAlive[x][y] || (!map.isAlive[x][y] && map.squares[x][y].getFillColor() == sf::Color(66, 209, 66)))
-					//window.draw(map.squares[x][y]);
-				//map.squares[x][y].setFillColor(sf::Color::Black);
 
 				map.statusChange(map.isAlive[x][y], x, y);
 			}

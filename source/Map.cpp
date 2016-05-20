@@ -29,8 +29,6 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 			statusChange(square, sf::Color::White);
 			isAlive[x][y] = false;
-
-			//delete square;
 		}
 	}
 }
@@ -77,8 +75,8 @@ void Map::loadMap() {
 		for (lineXCounter = 0; lineXCounter < squaresAmount; lineXCounter++) {
 
 			isAlive[lineXCounter][lineYCounter] = (lineContent[lineXCounter] == '1' ? true : false);
+			statusChange(isAlive[lineXCounter][lineYCounter], lineXCounter, lineYCounter);
 		}
-		lineXCounter = 0;
 		lineYCounter++;
 	}
 
