@@ -24,7 +24,6 @@ public:
 	bool** isAlive;
 	bool** willBeAlive;
 	sf::VertexArray squares;
-	//sf::RectangleShape** squares;
 
 	void statusChange(bool &, int, int);
 	void statusChange(sf::Vertex*, sf::Color);
@@ -36,9 +35,7 @@ public:
 private:
 	std::fstream file;
 	std::vector<std::string> list;
-	std::string sPath;
-	int iPath;
 
 };
 
-#endif // ! MAP_H
+#endif // !MAP_H

@@ -10,21 +10,16 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 	squares.setPrimitiveType(sf::Quads);
 	squares.resize(squaresAmount * squaresAmount * 4);
 
-	//squares = new sf::RectangleShape*[squaresAmount];
 	isAlive = new bool*[squaresAmount];
 	willBeAlive = new bool*[squaresAmount];
 
 	for (int x = 0; x < squaresAmount; x++) {
 
-		//squares[x] = new sf::RectangleShape[squaresAmount];
 		isAlive[x] = new bool[squaresAmount];
 		willBeAlive[x] = new bool[squaresAmount];
 		
 		for (int y = 0; y < squaresAmount; y++) {
 
-			//squares[x][y].setPosition(sf::Vector2f(x * (float)cellSize, y * (float)cellSize));
-			//squares[x][y].setSize(sf::Vector2f((float)cellSize, (float)cellSize));
-			//squares[x][y].setFillColor(sf::Color::Black);
 			sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
 
 			square[0].position = sf::Vector2f(cellSize * x, cellSize * y);
@@ -33,7 +28,6 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 			square[3].position = sf::Vector2f(cellSize * x, cellSize * (y + 1));
 
 			statusChange(square, sf::Color::White);
-
 			isAlive[x][y] = false;
 
 			//delete square;
@@ -46,11 +40,13 @@ void Map::draw(sf::RenderWindow &window) {
 	for (int y = 0; y < squaresAmount; y++)
 		for (int x = 0; x < squaresAmount; x++)
 			statusChange(isAlive[x][y], x, y);
-			//if (isAlive[x][y]) window.draw(squares[x][y]);
+
 	window.draw(squares);
 }
 
 void Map::loadMap() {
+
+	int iPath;
 
 	do {
 
@@ -91,6 +87,8 @@ void Map::loadMap() {
 
 void Map::save() {
 
+	std::string sPath;
+
 	system("cls");
 	std::cout << "-= The Game of Life =-\n\n";
 	std::cout << "Title of map: ";
@@ -108,10 +106,10 @@ void Map::save() {
 
 	file.close();
 
-	file.open("maps/List.txt", std::ios::out);
+	file.open("maps/List.txt", std::ios::app);
 
-	file << sPath << "\n";
-	
+	file << "\n" << sPath;
+
 	file.close();
 }
 
@@ -148,11 +146,7 @@ void Map::loadError() {
 
 void Map::statusChange(bool &isAlive, int x, int y) {
 
-	sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
-
-	statusChange(square, ((isAlive) ? sf::Color::Black : sf::Color::White));
-
-	//delete square;
+	statusChange(&squares[(x + y * squaresAmount) * 4], ((isAlive) ? sf::Color::Black : sf::Color::White));
 }
 
 void Map::statusChange(sf::Vertex* square, sf::Color color) {
