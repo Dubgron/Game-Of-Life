@@ -6,6 +6,7 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 	window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
 	info();
 
+	// Coordinates of square on which a mouse indicates
 	sf::Vector2i covered;
 
 	while (window.isOpen()) {
@@ -20,8 +21,11 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 				case sf::Event::KeyPressed:
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 						window.close();
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+						window.close();
 						map.save();
+						window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
+					}
 					break;			
 			}
 		}
@@ -72,5 +76,6 @@ void Editor::info() {
 	std::cout << "Welcome! You're in the Conway's Game of Life's Editor!" << std::endl << std::endl;
 	std::cout << "If you want to draw, press LMB." << std::endl;
 	std::cout << "If you want to erase what you drew, press RMB." << std::endl;
+	std::cout << "If you want to save your map, press S." << std::endl;
 	std::cout << "If you want to start simulation, press ENTER." << std::endl;
 }

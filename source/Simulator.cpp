@@ -57,8 +57,8 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 	int counter;
 
 	sf::Clock clock;
-	sf::Time accumulator = sf::Time::Zero;
-	sf::Time ups = sf::seconds(1.f / 60.f);
+	sf::Time frameCounter = sf::Time::Zero;
+	sf::Time framesPerSecond = sf::seconds(1.f / 60.f);
 
 	while (window.isOpen()) {
 
@@ -76,8 +76,8 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 			}
 		}
 
-		while (accumulator > ups) {
-			accumulator -= ups;
+		while (frameCounter > framesPerSecond) {
+			frameCounter -= framesPerSecond;
 
 			window.clear(sf::Color::White);
 
@@ -102,7 +102,7 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 
 			turn++;
 		}
-		accumulator += clock.restart();
+		frameCounter += clock.restart();
 	}
 }
 

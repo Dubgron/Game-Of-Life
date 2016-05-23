@@ -4,7 +4,7 @@
 void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 	this->squaresAmount = squaresAmount;
-	this->isInfinite = isInfinite;
+	//this->isInfinite = isInfinite;
 	cellSize = windowSize / squaresAmount;
 
 	squares.setPrimitiveType(sf::Quads);

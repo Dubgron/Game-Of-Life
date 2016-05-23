@@ -1,4 +1,4 @@
-#ifndef  MAP_H
+#ifndef MAP_H
 #define MAP_H
 
 #include "SFML/Graphics.hpp"
@@ -29,7 +29,7 @@ public:
 
 	int squaresAmount;
 	int cellSize;
-	bool isInfinite;
+	//bool isInfinite;
 
 private:
 	std::fstream file;
