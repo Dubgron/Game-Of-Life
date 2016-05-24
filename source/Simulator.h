@@ -2,7 +2,8 @@
 #define SIMULATOR_H
 
 #include "Map.h"
-#include <Windows.h>
+#include <thread>
+#include <chrono>
 
 class Simulator{
 

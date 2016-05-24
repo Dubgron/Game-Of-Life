@@ -22,7 +22,7 @@ void Game::menu() {
 	std::cout << "1. Create map yourself!" << std::endl;
 	std::cout << "2. Load someones map!";
 
-	menu = _getch();
+	menu = std::cin.get();
 
 	switch (menu) {
 
