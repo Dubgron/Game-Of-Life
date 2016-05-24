@@ -6,13 +6,14 @@
 #include "Options.h"
 #include <iostream>
 #include <fstream>
-#include <conio.h>
 #include <string>
 #include <vector>
 
 class Map {
 
 public:
+	~Map();
+
 	void set(int, int, bool);
 	void draw(sf::RenderWindow &window);
 	void loadMap();
@@ -20,6 +21,7 @@ public:
 	void loadList();
 	void showList();
 	void loadError();
+	bool isGood(int);
 
 	bool** isAlive;
 	bool** willBeAlive;

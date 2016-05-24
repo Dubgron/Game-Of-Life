@@ -4,14 +4,16 @@
 Game::Game(int windowSize, std::string title)
 	:windowSize(windowSize), title(title) {
 
-	map.set(100, windowSize, true);
+	map = new Map();
+
+	map->set(100, windowSize, true);
 }
 
 void Game::start() {
 
 	menu();
-	Simulator::setOptions(map);
-	Simulator::simulation(window, event, map, windowSize, title);
+	Simulator::setOptions(*map);
+	Simulator::simulation(window, event, *map, windowSize, title);
 }
 
 void Game::menu() {
@@ -19,18 +21,22 @@ void Game::menu() {
 	char menu;
 
 	std::cout << "-= The Game of Life =-\n\n";
-	std::cout << "1. Create map yourself!" << std::endl;
-	std::cout << "2. Load someones map!";
+	std::cout << "1. Create map yourself!\n";
+	std::cout << "2. Load existing map!\n";
+	std::cout << "\nChoose wisely: ";
 
-	menu = _getch();
+	menu = std::cin.get();
 
 	switch (menu) {
 
 		case '1':
-			Editor::edit(window, event, map, windowSize, title);
+			Editor::edit(window, event, *map, windowSize, title);
 			break;
 		case '2':
-			map.loadMap();
+			map->loadMap();
+			break;
+		default:
+			// TODO loop menu in case when someone choose another option
 			break;
 	}
 }

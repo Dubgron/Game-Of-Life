@@ -1,6 +1,12 @@
 #include "Map.h"
 
 
+Map::~Map() {
+
+	delete[] isAlive;
+	delete[] willBeAlive;
+}
+
 void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 	this->squaresAmount = squaresAmount;
@@ -57,24 +63,27 @@ void Map::loadMap() {
 		std::cout << "Choose map from list above: ";
 		std::cin >> iPath;
 
-		file.open("maps/" + list[iPath - 1] + ".txt", std::ios::in);
+		if (isGood(iPath)) 
+			file.open("maps/" + list[iPath - 1] + ".txt", std::ios::in);
 
-		file.good() ? system("cls") : loadError();
-		
+		if (!file.good()) loadError();
+
 	} while (!file.good());
 
+	system("cls");
+
 	std::string lineContent;
-	int lineXCounter = 0;
-	int lineYCounter = 0;
+	int x = 0;
+	int y = 0;
 
 	while (std::getline(file, lineContent)) {
 
-		for (lineXCounter = 0; lineXCounter < squaresAmount; lineXCounter++) {
+		for (x = 0; x < squaresAmount; x++) {
 
-			isAlive[lineXCounter][lineYCounter] = (lineContent[lineXCounter] == '1' ? true : false);
-			statusChange(isAlive[lineXCounter][lineYCounter], lineXCounter, lineYCounter);
+			isAlive[x][y] = (lineContent[x] == '1' ? true : false);
+			statusChange(isAlive[x][y], x, y);
 		}
-		lineYCounter++;
+		y++;
 	}
 
 	file.close();
@@ -134,9 +143,11 @@ void Map::showList() {
 
 void Map::loadError() {
 
-	std::cout << "\nError! File doesn't exist!";
+	std::cout << "\nError! File doesn't exist! Press ENTER to continue.";
 	file.close();
-	_getch();
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.get();
 }
 
 void Map::statusChange(bool &isAlive, int x, int y) {
@@ -148,4 +159,9 @@ void Map::statusChange(sf::Vertex* square, sf::Color color) {
 
 	for (int i = 0; i < 4; i++)
 		square[i].color = color;
+}
+
+bool Map::isGood(int iPath) {
+
+	return (iPath < 1 || iPath > (int)list.size()) ? false : true;
 }

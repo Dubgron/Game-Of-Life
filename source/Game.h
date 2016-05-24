@@ -11,7 +11,7 @@ public:
 
 	void start();
 	void menu();
-	Map map;
+	Map* map;
 
 private:
 	sf::RenderWindow window;

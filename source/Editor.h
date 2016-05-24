@@ -8,6 +8,7 @@ class Editor {
 public:
 	//Window, map, event, window size, title
 	static void edit(sf::RenderWindow &, sf::Event &, Map &, int, std::string);
+	static void update(sf::RenderWindow &, Map &);
 	static void info();
 };
 
