@@ -8,7 +8,7 @@ class Simulator{
 
 public:
 
-	//static void setOptions();
+	static void setOptions(Map &);
 	static void simulation(sf::RenderWindow &, sf::Event &, Map &, int, std::string);
 	static void displayMap(sf::RenderWindow &, Map &);
 	static void displayTurnCounter(int);

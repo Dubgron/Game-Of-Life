@@ -3,8 +3,8 @@
 
 void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int windowSize, std::string title) {
 
-	window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
 	info();
+	window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
 
 	// Coordinates of square on which a mouse indicates
 	sf::Vector2i covered;
@@ -13,7 +13,7 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 
 		while (window.pollEvent(event)) {
 
-			switch (event.type) {
+			switch (event.type) { 
 
 				case sf::Event::Closed:
 					window.close();
@@ -30,13 +30,14 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 			}
 		}
 
-		window.clear(sf::Color::White);
+		window.clear();
 
 		covered = sf::Mouse::getPosition(window) / map.cellSize;
 
 		if (covered.x >= 0 && covered.y >= 0 && covered.x < map.squaresAmount && covered.y < map.squaresAmount) {
 
-			std::cout << covered.x << " " << covered.y << std::endl;
+			// Display coordinates
+			//std::cout << covered.x << " " << covered.y << std::endl;
 
 			if (!map.isAlive[covered.x][covered.y]) {
 
@@ -72,7 +73,7 @@ void Editor::edit(sf::RenderWindow &window, sf::Event &event, Map &map, int wind
 void Editor::info() {
 
 	system("cls");
-	std::cout << "-= The Game of Life =-" << std::endl << std::endl;
+	std::cout << "-= The Game of Life =-\n\n";
 	std::cout << "Welcome! You're in the Conway's Game of Life's Editor!" << std::endl << std::endl;
 	std::cout << "If you want to draw, press LMB." << std::endl;
 	std::cout << "If you want to erase what you drew, press RMB." << std::endl;

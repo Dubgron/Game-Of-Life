@@ -22,12 +22,12 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 			sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
 
-			square[0].position = sf::Vector2f(cellSize * x, cellSize * y);
-			square[1].position = sf::Vector2f(cellSize * (x + 1), cellSize * y);
-			square[2].position = sf::Vector2f(cellSize * (x + 1), cellSize * (y + 1));
-			square[3].position = sf::Vector2f(cellSize * x, cellSize * (y + 1));
+			square[0].position = sf::Vector2f((float)cellSize * x, (float)cellSize * y);
+			square[1].position = sf::Vector2f((float)cellSize * (x + 1), (float)cellSize * y);
+			square[2].position = sf::Vector2f((float)cellSize * (x + 1), (float)cellSize * (y + 1));
+			square[3].position = sf::Vector2f((float)cellSize * x, (float)cellSize * (y + 1));
 
-			statusChange(square, sf::Color::White);
+			statusChange(square, settings.theme[1]);
 			isAlive[x][y] = false;
 		}
 	}
@@ -49,16 +49,13 @@ void Map::loadMap() {
 	do {
 
 		system("cls");
-		std::cout << "-= The Game of Life =-" << std::endl << std::endl;
+		std::cout << "-= The Game of Life =-\n\n";
 
 		loadList();
 		showList();
 
 		std::cout << "Choose map from list above: ";
 		std::cin >> iPath;
-
-		std::cout << list[0] << std::endl;
-		std::cout << list[iPath - 1] << std::endl;
 
 		file.open("maps/" + list[iPath - 1] + ".txt", std::ios::in);
 
@@ -144,7 +141,7 @@ void Map::loadError() {
 
 void Map::statusChange(bool &isAlive, int x, int y) {
 
-	statusChange(&squares[(x + y * squaresAmount) * 4], ((isAlive) ? sf::Color::Black : sf::Color::White));
+	statusChange(&squares[(x + y * squaresAmount) * 4], ((isAlive) ? settings.theme[0] : settings.theme[1]));
 }
 
 void Map::statusChange(sf::Vertex* square, sf::Color color) {

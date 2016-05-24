@@ -10,6 +10,7 @@ Game::Game(int windowSize, std::string title)
 void Game::start() {
 
 	menu();
+	Simulator::setOptions(map);
 	Simulator::simulation(window, event, map, windowSize, title);
 }
 
@@ -17,7 +18,7 @@ void Game::menu() {
 
 	char menu;
 
-	std::cout << "-= The Game of Life =-" << std::endl << std::endl;
+	std::cout << "-= The Game of Life =-\n\n";
 	std::cout << "1. Create map yourself!" << std::endl;
 	std::cout << "2. Load someones map!";
 

@@ -39,7 +39,7 @@ void Simulator::countDownToTheStart() {
 	for (int i = 3; i > 0; i--) {
 
 		system("cls");
-		std::cout << "-= The Game of Life =-" << std::endl << std::endl;
+		std::cout << "-= The Game of Life =-\n\n";
 		std::cout << "Simulation starts in " << i << (i == 1 ? " second." : " seconds.");
 		Sleep(1000);
 	}
@@ -58,7 +58,7 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 
 	sf::Clock clock;
 	sf::Time frameCounter = sf::Time::Zero;
-	sf::Time framesPerSecond = sf::seconds(1.f / 60.f);
+	sf::Time framesPerSecond = map.settings.frameRate;
 
 	while (window.isOpen()) {
 
@@ -79,7 +79,7 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 		while (frameCounter > framesPerSecond) {
 			frameCounter -= framesPerSecond;
 
-			window.clear(sf::Color::White);
+			window.clear();
 
 			for (int y = 0; y < map.squaresAmount; y++) {
 				for (int x = 0; x < map.squaresAmount; x++) {
@@ -94,11 +94,12 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 						map.willBeAlive[x][y] = true;
 				}
 			}
-			window.draw(map.squares);
-			window.display();
 			for (int y = 0; y < map.squaresAmount; y++)
 				for (int x = 0; x < map.squaresAmount; x++)
 					map.isAlive[x][y] = map.willBeAlive[x][y];
+
+			window.draw(map.squares);
+			window.display();
 
 			turn++;
 		}
@@ -110,9 +111,13 @@ void Simulator::displayMap(sf::RenderWindow &window, Map &map) {
 
 	window.clear(sf::Color::White);
 
-	for (int y = 0; y < map.squaresAmount; y++) 
-		for (int x = 0; x < map.squaresAmount; x++)
+	for (int y = 0; y < map.squaresAmount; y++) {
+		for (int x = 0; x < map.squaresAmount; x++) {
+
 			map.willBeAlive[x][y] = map.isAlive[x][y];
+			map.statusChange(map.isAlive[x][y], x, y);
+		}
+	}
 
 	window.draw(map.squares);
 	window.display();
@@ -121,7 +126,33 @@ void Simulator::displayMap(sf::RenderWindow &window, Map &map) {
 void Simulator::displayTurnCounter(int turn) {
 
 	system("cls");
-	std::cout << "-= The Game of Life =-" << std::endl << std::endl;
+	std::cout << "-= The Game of Life =-\n\n";
 	std::cout << "Amount of turns: " << turn << std::endl;
 	std::cout << "Press SPACE to continue simulation.";
+}
+
+void Simulator::setOptions(Map &map) {
+
+	float framesPerSecond;
+	short color;
+
+	system("cls");
+	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << "How many steps in one second: ";
+	std::cin >> framesPerSecond;
+	map.settings.frameRate = sf::seconds(1.f / framesPerSecond);
+
+	do {
+		system("cls");
+		std::cout << "-= The Game of Life =-\n\n";
+		std::cout << "1. Black / White\n";
+		std::cout << "2. Green / Black\n";
+		std::cout << "Choose color theme: ";
+		std::cin >> color;
+	} while (color > THEMES_AMOUNT && color < 0);
+	
+	if (color == 1) 
+		map.settings.set(sf::Color::Black, sf::Color::White);
+	else if (color == 2)
+		map.settings.set(sf::Color::Green, sf::Color::Black);
 }

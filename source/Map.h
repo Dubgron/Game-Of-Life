@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Options.h"
 #include <iostream>
 #include <fstream>
 #include <conio.h>
@@ -30,6 +31,8 @@ public:
 	int squaresAmount;
 	int cellSize;
 	//bool isInfinite;
+
+	Options settings;
 
 private:
 	std::fstream file;
