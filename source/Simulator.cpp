@@ -41,7 +41,7 @@ void Simulator::countDownToTheStart() {
 		system("cls");
 		std::cout << "-= The Game of Life =-\n\n";
 		std::cout << "Simulation starts in " << i << (i == 1 ? " second." : " seconds.");
-		Sleep(1000);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 	std::cout << "\nSimulation started.";
 	system("cls");
@@ -88,7 +88,7 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 
 					map.statusChange(map.isAlive[x][y], x, y);
 
-					if (map.isAlive[x][y] && (counter < 2 || counter > 3)) 
+					if (map.isAlive[x][y] && (counter < 2 || counter > 3))
 						map.willBeAlive[x][y] = false;
 					else if (counter == 3)
 						map.willBeAlive[x][y] = true;
@@ -150,8 +150,8 @@ void Simulator::setOptions(Map &map) {
 		std::cout << "Choose color theme: ";
 		std::cin >> color;
 	} while (color > THEMES_AMOUNT && color < 0);
-	
-	if (color == 1) 
+
+	if (color == 1)
 		map.settings.set(sf::Color::Black, sf::Color::White);
 	else if (color == 2)
 		map.settings.set(sf::Color::Green, sf::Color::Black);

@@ -17,7 +17,7 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 		isAlive[x] = new bool[squaresAmount];
 		willBeAlive[x] = new bool[squaresAmount];
-		
+
 		for (int y = 0; y < squaresAmount; y++) {
 
 			sf::Vertex* square = &squares[(x + y * squaresAmount) * 4];
@@ -59,8 +59,12 @@ void Map::loadMap() {
 
 		file.open("maps/" + list[iPath - 1] + ".txt", std::ios::in);
 
-		file.good() ? system("cls") : loadError();
-		
+		if (file.good()) {
+      system("cls");
+    } else {
+      loadError();
+    }
+
 	} while (!file.good());
 
 	std::string lineContent;
@@ -90,7 +94,7 @@ void Map::save() {
 	std::cin >> sPath;
 
 	file.open("maps/" + sPath + ".txt", std::ios::out);
-	
+
 	for (int y = 0; y < squaresAmount; y++) {
 		for (int x = 0; x < squaresAmount; x++) {
 
@@ -114,7 +118,7 @@ void Map::loadList() {
 
 	std::string lineContent;
 
-	while (std::getline(file, lineContent)) 
+	while (std::getline(file, lineContent))
 		list.push_back(lineContent);
 
 	file.close();
@@ -136,7 +140,7 @@ void Map::loadError() {
 
 	std::cout << "\nError! File doesn't exist!";
 	file.close();
-	_getch();
+	std::cin.get();
 }
 
 void Map::statusChange(bool &isAlive, int x, int y) {
