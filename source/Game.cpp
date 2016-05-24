@@ -14,6 +14,8 @@ void Game::start() {
 	menu();
 	Simulator::setOptions(*map);
 	Simulator::simulation(window, event, *map, windowSize, title);
+
+	delete map;
 }
 
 void Game::menu() {
