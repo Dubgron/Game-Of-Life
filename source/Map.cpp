@@ -97,7 +97,7 @@ void Map::save() {
 	std::cout << "Title of map: ";
 	std::cin >> sPath;
 
-	file.open("maps/" + sPath + ".txt", std::ios::out);
+	file.open("source/maps/" + sPath + ".txt", std::ios::out);
 	
 	for (int y = 0; y < squaresAmount; y++) {
 		for (int x = 0; x < squaresAmount; x++) {
@@ -109,7 +109,7 @@ void Map::save() {
 
 	file.close();
 
-	file.open("maps/List.txt", std::ios::app);
+	file.open("source/maps/List.txt", std::ios::app);
 
 	file << "\n" << sPath;
 
@@ -118,7 +118,7 @@ void Map::save() {
 
 void Map::loadList() {
 
-	file.open("maps/List.txt", std::ios::in);
+	file.open("source/maps/List.txt", std::ios::in);
 
 	std::string lineContent;
 
