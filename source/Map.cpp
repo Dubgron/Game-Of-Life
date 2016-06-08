@@ -41,11 +41,14 @@ void Map::set(int squaresAmount, int windowSize, bool isInfinite) {
 
 void Map::draw(sf::RenderWindow &window) {
 
-	for (int y = 0; y < squaresAmount; y++)
-		for (int x = 0; x < squaresAmount; x++)
-			statusChange(isAlive[x][y], x, y);
-
 	window.draw(squares);
+
+	for (int y = 0; y < squaresAmount; y++)
+		for (int x = 0; x < squaresAmount; x++) {
+
+			willBeAlive[x][y] = isAlive[x][y];
+			statusChange(isAlive[x][y], x, y);
+		}
 }
 
 void Map::loadMap() {

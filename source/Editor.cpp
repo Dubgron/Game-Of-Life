@@ -59,14 +59,7 @@ void Editor::update(sf::RenderWindow &window, Map &map) {
 		}
 	}
 
-	window.draw(map.squares);
-
-	for (int y = 0; y < map.squaresAmount; y++) {
-		for (int x = 0; x < map.squaresAmount; x++) {
-
-			map.statusChange(map.isAlive[x][y], x, y);
-		}
-	}
+	map.draw(window);
 
 	window.display();
 }

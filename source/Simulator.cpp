@@ -59,7 +59,9 @@ void Simulator::simulation(sf::RenderWindow &window, sf::Event &event, Map &map,
 
 	window.create(sf::VideoMode(windowSize, windowSize), title, sf::Style::Close);
 
-	displayMap(window, map);
+	map.draw(window);
+	window.display();
+
 	countDownToTheStart(window);
 
 	framesPerSecond = map.settings.frameRate;
@@ -111,28 +113,12 @@ void Simulator::update(sf::RenderWindow &window, Map &map) {
 			for (int x = 0; x < map.squaresAmount; x++)
 				map.isAlive[x][y] = map.willBeAlive[x][y];
 
-		window.draw(map.squares);
+		map.draw(window);
 		window.display();
 
 		turn++;
 	}
 	frameCounter += clock.restart();
-}
-
-void Simulator::displayMap(sf::RenderWindow &window, Map &map) {
-
-	window.clear(sf::Color::White);
-
-	for (int y = 0; y < map.squaresAmount; y++) {
-		for (int x = 0; x < map.squaresAmount; x++) {
-
-			map.willBeAlive[x][y] = map.isAlive[x][y];
-			map.statusChange(map.isAlive[x][y], x, y);
-		}
-	}
-
-	window.draw(map.squares);
-	window.display();
 }
 
 void Simulator::displayTurnCounter(int turn) {
