@@ -66,8 +66,7 @@ void Editor::update(sf::RenderWindow &window, Map &map) {
 
 void Editor::info() {
 
-	system("cls");
-	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << std::endl << std::endl;
 	std::cout << "Welcome! You're in the Conway's Game of Life's Editor!" << std::endl << std::endl;
 	std::cout << "If you want to draw, press LMB." << std::endl;
 	std::cout << "If you want to erase what you drew, press RMB." << std::endl;

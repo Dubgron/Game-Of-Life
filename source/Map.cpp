@@ -57,13 +57,12 @@ void Map::loadMap() {
 
 	do {
 
-		system("cls");
-		std::cout << "-= The Game of Life =-\n\n";
+		std::cout << std::endl << std::endl;
 
 		loadList();
 		showList();
 
-		std::cout << "Choose map from list above: ";
+		std::cout << std::endl << "Choose map from list above: ";
 		std::cin >> iPath;
 
 		if (isGood(iPath)) 
@@ -72,8 +71,6 @@ void Map::loadMap() {
 		if (!file.good()) loadError();
 
 	} while (!file.good());
-
-	system("cls");
 
 	std::string lineContent;
 	int x = 0;
@@ -96,8 +93,7 @@ void Map::save() {
 
 	std::string sPath;
 
-	system("cls");
-	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << std::endl;
 	std::cout << "Title of map: ";
 	std::cin >> sPath;
 
@@ -146,7 +142,7 @@ void Map::showList() {
 
 void Map::loadError() {
 
-	std::cout << "\nError! File doesn't exist! Press ENTER to continue.";
+	std::cout << std::endl << "Error! File doesn't exist!" << std::endl << "ENTER to continue.";
 	file.close();
 
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

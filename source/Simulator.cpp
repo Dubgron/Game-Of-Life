@@ -42,14 +42,12 @@ void Simulator::countDownToTheStart(sf::RenderWindow &window) {
 
 	for (int i = 3; i > 0; i--) {
 
-		system("cls");
-		std::cout << "-= The Game of Life =-\n\n";
+		std::cout << std::endl << std::endl;
 		std::cout << "Simulation starts in " << i << (i == 1 ? " second." : " seconds.");
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-	system("cls");
 
-	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << std::endl << std::endl;
 	std::cout << "Simulation started.";
 
 	window.setActive();
@@ -123,8 +121,7 @@ void Simulator::update(sf::RenderWindow &window, Map &map) {
 
 void Simulator::displayTurnCounter(int turn) {
 
-	system("cls");
-	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << std::endl;
 	std::cout << "Amount of turns: " << turn << std::endl;
 	std::cout << "Press SPACE to continue simulation.";
 }
@@ -134,15 +131,13 @@ void Simulator::setOptions(Map &map) {
 	float framesPerSecond;
 	short color;
 
-	system("cls");
-	std::cout << "-= The Game of Life =-\n\n";
+	std::cout << std::endl;
 	std::cout << "How many steps in one second: ";
 	std::cin >> framesPerSecond;
 	map.settings.frameRate = sf::seconds(1.f / framesPerSecond);
 
 	do {
-		system("cls");
-		std::cout << "-= The Game of Life =-\n\n";
+		std::cout << std::endl;
 		std::cout << "1. Black / White\n";
 		std::cout << "2. Green / Black\n";
 		std::cout << "\nChoose color theme: ";
